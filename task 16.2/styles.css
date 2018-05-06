@@ -1,0 +1,14 @@
+body {
+   background-color: lightgreen;
+}
+
+h1 {
+   text-align: center;
+   color: red;
+   font-size: 64px;
+}
+
+p {
+	background-color: grey;
+	color: yellow;
+}
