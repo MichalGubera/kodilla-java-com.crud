@@ -1,0 +1,12 @@
+Z jakiej bazy korzysta Twoja aplikacja?
+Aplikacja REST koryzsta z relacyjnej bazy danych, MySQL;
+
+Jakich bibliotek u¿ywasz w swoim projekcie?
+java.io - zawieraj¹ca metody, dziêki którym mo¿na przeprowadzaæ operacje zwi¹zane z procesami wejœcia, wyjœcia w obrêbie aplikacji;
+Lombok - do tworzenia getterów, setterów, konstruktorów iin. za pomoc¹ adnotacji typu @Getter itd.;
+
+Z jakich metod HTTP korzysta Twoja aplikacja?
+POST - do tworzenia nowych rekordów w bazie danych
+GET - do odczytywania istniej¹cych rekordów
+PUT - do modyfikacji rekordów
+DELETE - do usuwania rekordów
