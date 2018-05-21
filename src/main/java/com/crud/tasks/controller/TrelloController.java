@@ -22,13 +22,13 @@ public class TrelloController {
     private TrelloClient trelloClient;
 
     @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
-    public void getTrelloBoards() {
-
-        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
-
-        trelloBoards.forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
-
-    }
+//    public void getTrelloBoards() {
+//
+//        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
+//
+//        trelloBoards.forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
+//
+//    }
 
 //    public void getTrelloBoards() {
 //
@@ -43,15 +43,18 @@ public class TrelloController {
 //
 //    }
 
-//    public Optional <List<TrelloBoardDto>> getTrelloBoards() {  //<--- task 18.2.4
-//
-//        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards()
-//                .stream()
-//                .filter(board -> board.getName().contains("Kodilla"))
-//                .forEach(System.out.println(.getId() + " " + .getName()))
-//                .collect(Collectors.toList());
-//
-//        return Optional.of(trelloBoards)
-//
-//    }
+    public Optional <List<TrelloBoardDto>> getTrelloBoards() {  //<--- task 18.2.4
+
+        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards()
+                .stream()
+                .filter(board -> board.getId() != null)
+                .filter(board -> board.getName() != null)
+                .filter(board -> board.getName().contains("Kodilla"))
+                .collect(Collectors.toList());
+
+        trelloBoards.forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
+
+        return Optional.of(trelloBoards);
+
+    }
 }
