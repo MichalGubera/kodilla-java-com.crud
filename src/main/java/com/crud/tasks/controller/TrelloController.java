@@ -1,9 +1,12 @@
 package com.crud.tasks.controller;
 
+import com.crud.tasks.domain.CreatedTrelloCard;
 import com.crud.tasks.domain.TrelloBoardDto;
+import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.client.TrelloClient;
 import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,13 +25,28 @@ public class TrelloController {
     private TrelloClient trelloClient;
 
     @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
-//    public void getTrelloBoards() {
-//
-//        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
-//
-//        trelloBoards.forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
-//
-//    }
+    public void getTrelloBoards() {
+
+        // GET request
+        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
+
+        trelloBoards.forEach(trelloBoardDto -> {
+
+            System.out.println(trelloBoardDto.getName() + " - " + trelloBoardDto.getId());
+
+            System.out.println("This board contains lists: ");
+
+            trelloBoardDto.getLists().forEach(trelloList ->
+                    System.out.println(trelloList.getName() + " - " + trelloList.getId() + " - " + trelloList.isClosed()));
+
+        });
+
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")
+    public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+        return trelloClient.createNewCard(trelloCardDto);
+    }
 
 //    public void getTrelloBoards() {
 //
@@ -43,18 +61,18 @@ public class TrelloController {
 //
 //    }
 
-    public Optional <List<TrelloBoardDto>> getTrelloBoards() {  //<--- task 18.2.4
-
-        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards()
-                .stream()
-                .filter(board -> board.getId() != null)
-                .filter(board -> board.getName() != null)
-                .filter(board -> board.getName().contains("Kodilla"))
-                .collect(Collectors.toList());
-
-        trelloBoards.forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
-
-        return Optional.of(trelloBoards);
-
-    }
+//    public Optional <List<TrelloBoardDto>> getTrelloBoards() {  //<--- task 18.2.4
+//
+//        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards()
+//                .stream()
+//                .filter(board -> board.getId() != null)
+//                .filter(board -> board.getName() != null)
+//                .filter(board -> board.getName().contains("Kodilla"))
+//                .collect(Collectors.toList());
+//
+//        trelloBoards.forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
+//
+//        return Optional.of(trelloBoards);
+//
+//    }
 }
