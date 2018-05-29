@@ -3,6 +3,7 @@ package com.crud.tasks.controller;
 import com.crud.tasks.domain.CreatedTrelloCard;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
+import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.trello.client.TrelloClient;
 import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,13 @@ import java.util.stream.Collectors;
 public class TrelloController {
 
     @Autowired
-    private TrelloClient trelloClient;
+    private TrelloService trelloService;
+// private TrelloClient trelloClient;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+    @RequestMapping(method = RequestMethod.GET, value = "/getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
-        return trelloClient.getTrelloBoards();
+        return trelloService.fetchTrelloBoards();
+//        return trelloClient.getTrelloBoards();
 
 //        //18.3 - aby wyświetlić tablice w konsoli:
 //        // GET request
@@ -43,9 +46,10 @@ public class TrelloController {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")
+    @RequestMapping(method = RequestMethod.POST, value = "/createTrelloCard")
     public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
-        return trelloClient.createNewCard(trelloCardDto);
+        return trelloService.createdTrelloCard(trelloCardDto);
+//        return trelloClient.createNewCard(trelloCardDto);
     }
 
 //    public void getTrelloBoards() {
