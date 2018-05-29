@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.Validator;
 import org.springframework.web.client.RestTemplate;
@@ -19,6 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
 
+@EnableScheduling
 @EnableSwagger2
 @Configuration
 public class CoreConfiguration implements WebMvcConfigurer {
@@ -35,6 +37,16 @@ public class CoreConfiguration implements WebMvcConfigurer {
                 .apis(RequestHandlerSelectors.basePackage("com.crud.tasks.controller"))
                 .paths(PathSelectors.any())
                 .build();
+    }
+
+    @Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        // Required by Swagger UI configuration
+        registry.addResourceHandler("/lib/**").addResourceLocations("/lib/").setCachePeriod(0);
+        registry.addResourceHandler("/images/**").addResourceLocations("/images/").setCachePeriod(0);
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(0);
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Override
@@ -65,16 +77,6 @@ public class CoreConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-    }
-
-    @Override
-    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        // Required by Swagger UI configuration
-        registry.addResourceHandler("/lib/**").addResourceLocations("/lib/").setCachePeriod(0);
-        registry.addResourceHandler("/images/**").addResourceLocations("/images/").setCachePeriod(0);
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(0);
-        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Override
