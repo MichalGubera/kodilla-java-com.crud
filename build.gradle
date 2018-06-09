@@ -31,6 +31,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-mail:2.0.2.RELEASE')
 	compile('mysql:mysql-connector-java')
 
+	compile('com.google.code.gson:gson:2.8.2')
+
 	// HEROKU:
 //	compile('org.postgresql:postgresql')
 
