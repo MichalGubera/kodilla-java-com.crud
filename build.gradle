@@ -31,7 +31,10 @@ dependencies {
 	compile('mysql:mysql-connector-java')
 	compile('org.springframework.boot:spring-boot-starter-mail:2.0.2.RELEASE')
     compile('org.springframework.boot:spring-boot-starter-actuator:1.5.12.RELEASE')
-	compile('com.google.code.gson:gson:2.8.2')
+    compile('com.google.code.gson:gson:2.8.2')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	// parser dla THYMELEAF:
+	compile ('net.sourceforge.nekohtml:nekohtml:1.9.22')
 
 	// HEROKU:
 //	compile('org.postgresql:postgresql')
