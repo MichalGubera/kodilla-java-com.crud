@@ -9,12 +9,23 @@
 
     <!--/*thymesVar id="variable" type="com.crud.tasks.controller.StaticWebPageController"*/-->
     <span th:text="${variable}"></span>
-
     <br>
-
     <!--/*thymesVar id="one" type="com.crud.tasks.controller.StaticWebPageController"*/-->
     <!--/*thymesVar id="two" type="com.crud.tasks.controller.StaticWebPageController"*/-->
-    <span th:text="${one} + ${two}"></span>
+    <!--<span th:text="${one} + ${two}"></span>-->
+    <br>
+    <!--/*@thymesVar id="two" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+    <!--/*@thymesVar id="firstEquation" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+    <!--/*@thymesVar id="secondEquation" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+    <!--/*@thymesVar id="thirdEquation" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+    <span th:text="${firstEquation}"></span>
+    <span th:text="${two} * ${two}"></span>
+    <br>
+    <span th:text="${secondEquation}"></span>
+    <span th:text="${two} * ${two} + ${two}"></span>
+    <br>
+    <span th:text="${thirdEquation}"></span>
+    <span th:text="${two} - ${two} * ${two}"></span>
 
 </body>
 </html>
