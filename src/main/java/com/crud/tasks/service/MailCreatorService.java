@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.config.AdminConfig;
+import com.crud.tasks.scheduler.EmailScheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class MailCreatorService {
     @Autowired
     @Qualifier("templateEngine")
     private TemplateEngine templateEngine;
+
+    @Autowired
+    private EmailScheduler emailScheduler;
 
     public String buildTrelloCardEmail(String message) {
         ArrayList<String> functionality = new ArrayList<>();
@@ -38,5 +42,25 @@ public class MailCreatorService {
         context.setVariable("company_phone", "${info.company.phone}");
         context.setVariable("company_email" , "${info.company.email}");
         return templateEngine.process("mail/created-trello-card-mail", context);
+    }
+
+    public String buildSchedulerCardEmail(String message) {
+
+        ArrayList<String> schedulerFunctionality = new ArrayList<>();
+        schedulerFunctionality.add("Sending update every 10 hours");
+        schedulerFunctionality.add("Provides number of active tasks");
+
+
+        Context context = new Context();
+        context.setVariable("message", message);
+        context.setVariable("task_url", "http://localhost:8888/crud");
+        context.setVariable("button", "Check the Crud App");
+        context.setVariable("admin_config", adminConfig.getAdminName());
+        context.setVariable("goodbye", "See you in 10 hours");
+        context.setVariable("company_name", "${info.company.name}");
+        context.setVariable("has_tasks", emailScheduler.hasTasks());
+        context.setVariable("scheduler_functionality", schedulerFunctionality);
+
+        return templateEngine.process("mail/scheduled-email", context);
     }
 }
