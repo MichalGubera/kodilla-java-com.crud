@@ -16,6 +16,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public class TaskController {
     @Autowired
     private DbService service;
+
     @Autowired
     private TaskMapper taskMapper;
 
@@ -24,8 +25,8 @@ public class TaskController {
         return taskMapper.mapToTaskDtoList(service.getAllTasks());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/taskt/{taskId}")
-    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException {
+    @RequestMapping(method = RequestMethod.GET, value = "/tasks/{taskId}")
+    public TaskDto getTask(@PathVariable Long taskId) throws TaskNotFoundException {
         return taskMapper.mapToTaskDto(service.getTask(taskId).orElseThrow(TaskNotFoundException::new));
     }
 
